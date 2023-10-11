@@ -1,6 +1,6 @@
 {
   "name": "n8n",
-  "description": "deploy n8n to back4app without any hassle",
+  "description": "deploy n8n to back4app for a private sestup",
   "keywords": [
     "n8n",
     "node",
@@ -44,5 +44,5 @@
 #      "description": "Without specifying the published domain, n8n will think that it's hosted on localhost (and it could break in some scenarios",
 #      "value": "n8n-theguyhere.herokuapp.com"
 #    }
-#  },
+  }
 }
