@@ -1,17 +1,17 @@
 #!/bin/sh
 
-# check if port variable is set or go with default
+# Check if port variable is set or go with default
 if [ -z ${PORT+x} ]; then echo "PORT variable not defined, leaving N8N to default port."; else export N8N_PORT=$PORT; echo "N8N will start on '$PORT'"; fi
 
-# regex function
+# Regex function
 parse_url() {
   eval $(echo "$1" | sed -e "s#^\(\(.*\)://\)\?\(\([^:@]*\)\(:\(.*\)\)\?@\)\?\([^/?]*\)\(/\(.*\)\)\?#${PREFIX:-URL_}SCHEME='\2' ${PREFIX:-URL_}USER='\4' ${PREFIX:-URL_}PASSWORD='\6' ${PREFIX:-URL_}HOSTPORT='\7' ${PREFIX:-URL_}DATABASE='\9'#")
 }
 
-# received url as argument
+# Received url as argument
 ARG_URL=${1:-""}
 
-# override if config vars detected
+# Override if config vars detected
 if [ "$DATABASE_URL" ]
 then
     ARG_URL=$DATABASE_URL
@@ -27,10 +27,10 @@ else
     echo "no config vars found"
 fi
 
-# disable diagnostics
+# Disable diagnostics
 export N8N_DIAGNOSTICS_ENABLED=false
 
-# prefix variables to avoid conflicts and run parse url function on arg url
+# Prefix variables to avoid conflicts and run parse url function on arg url
 PREFIX="N8N_DB_" parse_url "$ARG_URL"
 
 echo "$N8N_DB_SCHEME://$N8N_DB_USER:$N8N_DB_PASSWORD@$N8N_DB_HOSTPORT/$N8N_DB_DATABASE"
@@ -50,6 +50,9 @@ then
 	export DB_POSTGRESDB_DATABASE=$N8N_DB_DATABASE
 	export DB_POSTGRESDB_USER=$N8N_DB_USER
 	export DB_POSTGRESDB_PASSWORD=$N8N_DB_PASSWORD
+
+	# For back4app
+	export DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED=false
 
 elif [ $N8N_DB_SCHEME == 'mongodb' ]
 then
