@@ -35,10 +35,14 @@ PREFIX="N8N_DB_" parse_url "$ARG_URL"
 
 echo "$N8N_DB_SCHEME://$N8N_DB_USER:$N8N_DB_PASSWORD@$N8N_DB_HOSTPORT/$N8N_DB_DATABASE"
 
+echo "reached"
+
 # Separate host and port    
 N8N_DB_HOST="$(echo $N8N_DB_HOSTPORT | sed -e 's,:.*,,g')"
 
 N8N_DB_PORT="$(echo $N8N_DB_HOSTPORT | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')"
+
+echo "reached"
 
 # DB switch
 if [ $N8N_DB_SCHEME == 'postgres' ]
